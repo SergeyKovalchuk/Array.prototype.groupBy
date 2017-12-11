@@ -16,10 +16,18 @@ const result2 = {
   6: [6]
 };
 
+beforeEach(() => {
+	Array.prototype.groupBy = groupBy;
+});
+
+afterEach(() => {
+	delete Array.prototype.groupBy;
+});
+
 it('should return grouped elements according to the passed function', () => {
-    assert.deepEqual(groupBy([1,2,3,2,4,1,5,1,6]), result1);
+    assert.deepEqual([1,2,3,2,4,1,5,1,6].groupBy(val => val % 3), result1);
 });
 
 it('should return grouped elements by default', () => {
-    assert.deepEqual(groupBy([1,2,3,2,4,1,5,1,6]), result2);
+    assert.deepEqual([1,2,3,2,4,1,5,1,6].groupBy(), result2);
 });
